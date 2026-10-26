@@ -1,0 +1,36 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      OLLAMA_HOST: http://ollama:11434  # hapus baris ini kalau pakai Ollama Cloud
+    volumes:
+      - ./workspace:/workspace
+    depends_on:
+      - ollama
+
+  bot:
+    build: .
+    command: ["python", "-m", "app.telegram_bot"]
+    env_file: .env
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Hapus service ini kalau pakai Ollama Cloud / Ollama di host
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama:/root/.ollama
+    # Uncomment kalau VPS punya GPU NVIDIA:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices: [{ driver: nvidia, count: all, capabilities: [gpu] }]
+
+volumes:
+  ollama:
