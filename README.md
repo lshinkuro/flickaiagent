@@ -1,6 +1,10 @@
 # Flick AI Agent
 
+[![CI](https://github.com/lshinkuro/flickaiagent/actions/workflows/ci.yml/badge.svg)](https://github.com/lshinkuro/flickaiagent/actions/workflows/ci.yml)
+
 AI coding agent (port dari versi Colab + Telegram) sebagai API **FastAPI**, dikelola dengan **uv**, model lewat **Ollama**, siap jalan di **Docker** / VPS.
+
+📖 **Baru pertama kali? Baca [Panduan Pemakaian](docs/PANDUAN.md)** (langkah demi langkah: laptop, CLI, Telegram, Docker, VPS, troubleshooting).
 
 Tools agent: `list_files`, `read_file`, `write_file`, `run_shell`, `web_search`, `web_fetch`. Semua operasi file dikunci di folder `WORKDIR`.
 
@@ -11,6 +15,8 @@ app/
   telegram_bot.py  # bot Telegram, client dari /chat
   cli.py     # flick-cli, client terminal dari /chat
 tests/       # uv run --with pytest pytest
+docs/PANDUAN.md  # panduan pemakaian lengkap
+.github/workflows/ci.yml  # CI: test + build Docker
 Dockerfile
 docker-compose.yml
 .env.example
